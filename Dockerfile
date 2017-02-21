@@ -3,7 +3,6 @@ MAINTAINER obscur95 <obscur95@gmail.com>
 #
 ENV DEBIAN_FRONTEND noninteractive \
 	DEBCONF_NONINTERACTIVE_SEEN true
-#ENV DEBCONF_NONINTERACTIVE_SEEN true
 #
 #Configuration de la langue FR
 #
@@ -25,15 +24,6 @@ RUN mkdir /home/gns3 \
 	&& mkdir /home/gns3/GNS3/images/QEMU/Fortigate \
 	&& mkdir /home/gns3/GNS3/images/QEMU/PC \
 	&& mkdir /home/gns3/GNS3/projects
-#RUN mkdir /home/gns3/GNS3
-#RUN mkdir /home/gns3/GNS3/images
-#RUN mkdir /home/gns3/GNS3/images/IOS
-#RUN mkdir /home/gns3/GNS3/images/IOU
-#RUN mkdir /home/gns3/GNS3/images/QEMU
-#RUN mkdir /home/gns3/GNS3/images/QEMU/CSR1000v
-#RUN mkdir /home/gns3/GNS3/images/QEMU/Fortigate
-#RUN mkdir /home/gns3/GNS3/images/QEMU/PC
-#RUN mkdir /home/gns3/GNS3/projects
 #
 #Copie du fichier sources.list
 #
@@ -44,8 +34,6 @@ COPY sources.list /etc/apt/sources.list
 RUN dpkg --add-architecture i386 \
 	&& apt-get update \
 	&& apt-get -y dist-upgrade
-#RUN apt-get update
-#RUN apt-get -y dist-upgrade
 #
 #Installation des packages
 #
@@ -56,16 +44,10 @@ RUN apt-get -y install libc6:i386 libstdc++6:i386 \
 	&& apt-get -y install python3-setuptools python3.5 \
 	&& apt-get -y install python3-pip \
 	&& python3.5 -m pip install -U pip
-#RUN apt-get -y install libssl1.0.0:i386
-#RUN apt-get -y install lsb-release telnet traceroute tcpdump net-tools vim nano
-#RUN apt-get -y install git bison flex
-#RUN apt-get -y install python3-setuptools python3.5
-#RUN apt-get -y install python3-pip
-#RUN python3.5 -m pip install -U pip
 #
 #Pre-requis GNS3 server
 #
-RUN apt-get -y install qemu-kvm qemu-system-x86 vpcs dynamips uuid-runtime\
+RUN apt-get -y install qemu-kvm qemu-system-x86 vpcs dynamips uuid-runtime \
 	&& cd /tmp ; git clone http://github.com/ndevilla/iniparser.git ; cd iniparser ; make \
 	&& cp /tmp/iniparser/libiniparser.* /usr/lib/ \
 	&& cp /tmp/iniparser/src/iniparser.h /usr/local/include \
@@ -75,15 +57,6 @@ RUN apt-get -y install qemu-kvm qemu-system-x86 vpcs dynamips uuid-runtime\
 	&& cd /tmp ; git clone https://github.com/GNS3/ubridge.git ; cd ubridge ; make ; make install \
 	&& cd / \
 	&& ln -s /lib/i386-linux-gnu/libcrypto.so.1.0.0 /lib/i386-linux-gnu/libcrypto.so.4
-#RUN cd /tmp ; git clone http://github.com/ndevilla/iniparser.git ; cd iniparser ; make
-#RUN cp /tmp/iniparser/libiniparser.* /usr/lib/
-#RUN cp /tmp/iniparser/src/iniparser.h /usr/local/include
-#RUN cp /tmp/iniparser/src/dictionary.h /usr/local/include
-#RUN cd /tmp ; git clone https://github.com/GNS3/iouyap.git ; cd iouyap ; make ; make install
-#RUN apt-get -y install libpcap-dev
-#RUN cd /tmp ; git clone https://github.com/GNS3/ubridge.git ; cd ubridge ; make ; make install
-#RUN cd /
-#RUN ln -s /lib/i386-linux-gnu/libcrypto.so.1.0.0 /lib/i386-linux-gnu/libcrypto.so.4
 #
 #Installation de GNS3 server
 #
@@ -123,11 +96,6 @@ RUN chmod +x /home/gns3/GNS3/images/IOS/c3745-advipservicesk9-mz.124-25d.bin \
 	&& chmod +x /home/gns3/GNS3/images/IOU/i86bi-linux-l2-adventerprisek9-15.6.0.9S.bin \
 	&& chmod +x /home/gns3/GNS3/images/IOU/i86bi-linux-l2-ipbasek9-15.1g.bin \
 	&& chmod +x /home/gns3/GNS3/images/IOU/i86bi-linux-l3-adventerprisek9-15.5.2T.bin
-#RUN chmod +x /home/gns3/GNS3/images/IOS/c7200-adventerprisek9-mz.124-15.T17.bin
-#RUN chmod +x /home/gns3/GNS3/images/IOS/c7200-adventerprisek9-mz.152-4.S7.bin
-#RUN chmod +x /home/gns3/GNS3/images/IOU/i86bi-linux-l2-adventerprisek9-15.6.0.9S.bin
-#RUN chmod +x /home/gns3/GNS3/images/IOU/i86bi-linux-l2-ipbasek9-15.1g.bin
-#RUN chmod +x /home/gns3/GNS3/images/IOU/i86bi-linux-l3-adventerprisek9-15.5.2T.bin 
 #
 #Ouverture des ports
 #
